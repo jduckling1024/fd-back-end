@@ -1,12 +1,6 @@
 ## ignore files in node_modules
 node_modules/
 
-## ignore package-lock.json
-package-lock.json
-
-## ignore package.json
-## package.json
-
 ## ignore env files
 *.env
 
