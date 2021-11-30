@@ -5,7 +5,7 @@ node_modules/
 package-lock.json
 
 ## ignore package.json
-package.json
+## package.json
 
 ## ignore env files
 *.env
