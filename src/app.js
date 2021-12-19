@@ -1,26 +1,34 @@
-import dotenv from "dotenv";
-dotenv.config({
-  path: "../.env",
-});
-
+import router from "./api/routes/index.js";
 import express from "express";
-
-const app = express();
-const port = process.env.PORT;
-
-app.listen(port, () => {
-  console.log("listening on 8080");
-});
-
+import cors from "cors";
+import http from "http";
 import mongoose from "mongoose";
-mongoose.connect(process.env.DATABASE_URL);
+import dotenv from "dotenv";
 
-const db = mongoose.connection;
+// server 설정
+var app = express();
 
-db.on("error", () => {
-  console.log("Connection failed!");
+app.set("port", process.env.PORT || 8080);
+
+http.createServer(app).listen(app.get("port"), () => {
+  console.log("Listening on " + app.get("port"));
 });
 
-db.once("open", () => {
-  console.log("Connected!");
+let corsOptions = {
+  origin: process.env.FRONTEND_URL,
+  credentials: true
+};
+
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use("/", router);
+
+
+// db 설정
+dotenv.config({
+  path: "../.env"
 });
+
+mongoose.connect(process.env.DATABASE_URL)
+  .then(() => console.log("Connected successful!"))
+  .catch((err) => console.log(err));
