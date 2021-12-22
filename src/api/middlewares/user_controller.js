@@ -1,9 +1,12 @@
 import user_service from "../../services/index.js";
 
-const signUp = (req, res, next) => {
+const signUp = async (req, res) => {
   const userDto = req.body;
-  user_service.signUp(userDto);
-
+  const result = await user_service.signUp(userDto);
+  res
+    .status(result.status)
+    .json({ message: result.message })
+    .send();
 };
 
 const login = () => {
