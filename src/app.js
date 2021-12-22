@@ -4,6 +4,7 @@ import cors from "cors";
 import http from "http";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import bodyParser from "body-parser";
 
 // server 설정
 var app = express();
@@ -19,6 +20,7 @@ let corsOptions = {
   credentials: true
 };
 
+app.use(bodyParser.json());
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/", router);
